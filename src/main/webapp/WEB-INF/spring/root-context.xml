@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- p455
+		이미 등록된 bean에 대해서만 어노테이션을 활성화한다. 
+	-->
+	<context:annotation-config/>
+
+
+	<bean id="hikariConfig" 
+		  class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+		          value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="jdbcUrl"
+				  value="jdbc:log4jdbc:oracle:thin:@localhost:1521:bigdata"/>		          
+		<property name="username" value="spring"/>
+		<property name="password" value="spring1234"/>			
+	</bean>
+	<!-- 
+		데이터베이스 연결 설정
+		destroy-method="close" => 데이터베이스 연결이 끝났을 경우 자동으로 close()
+	 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<!-- 매개변수가 있는 생성자를 호출하여 초기화  -->
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+	
+	<!-- page 91 -->
+	<bean id="sqlSessionFactory"
+	      class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" 
+		          ref="dataSource"/>	
+	</bean>
+	
+	<!-- mybatis 관련 선언 
+		 org.bigdata.mapper 패키지내에
+		 선언된 mybatis 관련 어노테이션을 모두 검색하여 처리	
+	-->
+	<mybatis-spring:scan 
+			base-package="org.bigdata.mapper"/>
+			
+	<context:component-scan 
+				base-package="org.bigdata.service"/>
+	
+	<!-- p455 aop관련 어노테이션 동작하도록 선언 -->				
+	<aop:aspectj-autoproxy/>		
+	
+	<!-- p455 -->
+	<context:component-scan 
+				base-package="org.bigdata.aop"/>
+	
+	<!-- p469 트랜잭션 처리관련 선언 10.14 시작 -->
+	<!-- 
+		DataSourceTransactionManager?
+		트랜잭션 처리를 하는 인터페이스
+		jdbc및 mybatis 등 jdbc 기반 라이브러리로
+		데이터베이스 접근시 사용		
+	 -->
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>	
+	</bean>			
+
+	<!-- 트랜잭션 처리 관련 어노테이션 검색 -->				
+	<tx:annotation-driven/>
+	<!-- p469 트랜잭션 처리관련 선언 10.14 종료 -->
+	
+				
+
+						
+
+</beans>
+
+
+
+
+

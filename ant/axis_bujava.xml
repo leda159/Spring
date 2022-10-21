@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<project name="WebMarket" default="jarTest" basedir=".">
+	<description>WebMarket jar create Test</description>
+	<!-- 자바 소스를 복사하는 위치 -->
+	<property name="targetDir" value="d:\my_ant"/>
+	<!-- 생성된 jar 파일을 복사하는 위치 -->
+	<property name="jarTargetDir" value="d:\my_jar"/>
+	<!-- 자바 소스가 있는 위치 -->
+	<property name="sourceDir" value="d:\SpringStudy\springMVCExample\src\main\java\ant"/>
+	
+	<target name="jarTest">
+		<!--targetDir에 지정된 폴더 생성 -->	
+		<mkdir dir="${targetDir}"/>
+		<echo message="target directory create success"/>
+		
+		<!-- jar 파일이 복사되는 폴더 생성 -->	
+		<mkdir dir="${jarTargetDir}"/>
+		<echo message="jarTargetDir directory create success"/>
+		
+		<!-- ant 패키지에 있는 자바 클래스 2개를 
+			 my_ant 폴더에 복사 -->
+		<copy todir="${targetDir}">
+			<fileset dir="${sourceDir}"/>
+		</copy>	
+		<echo message="file copy success"/>
+		<!-- my_ant 폴더에 있는 자바클래스 2개를 컴파일 -->
+		<javac srcdir="${targetDir}"
+			   destdir="${targetDir}" 
+		       includeantruntime="false"/>
+		
+		<!-- my_ant 폴더에 있는 *.java 파일 모두 삭제-->
+		<delete>
+			<fileset dir="${targetDir}"
+					 includes="**/*.java"/>
+		</delete>
+		<echo message="java files delete success"/>
+		<!-- my_ant 에 있는 Test1.class,Test2.class를 
+		     가지고 jar 생성 -->
+		<jar destfile="${jarTargetDir}/WebMarket.jar"
+			 basedir="${targetDir}"/>
+		<echo message="jar file create success"/>
+		
+		<!-- 모든 *.class 파일 삭제 처리 -->
+		<delete>
+			<fileset dir="${targetDir}"
+					 includes="**/*.class"/>
+		</delete>
+		<echo message="class files create success"/>
+		
+	</target>
+	
+</project>	
+
