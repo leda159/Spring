@@ -81,6 +81,9 @@
 	<!-- p597 Quartz 관련 선언 -->
 	<task:annotation-driven/>
 	<!-- p597 Quartz 관련 종료 -->
+	
+	<!-- p598 -->
+	<context:component-scan base-package="org.bigdata.task" />
 				
 
 						
