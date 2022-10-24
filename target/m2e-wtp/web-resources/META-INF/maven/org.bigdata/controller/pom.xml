@@ -203,6 +203,20 @@
 		    <artifactId>thumbnailator</artifactId>
 		    <version>0.4.8</version>
 		</dependency>		   
+		<!--p595 quartz 적용 시작 -->
+		<dependency>
+    		<groupId>org.quartz-scheduler</groupId>
+    		<artifactId>quartz</artifactId>
+   	 		<version>2.3.0</version>
+		</dependency>
+		<!--p595 quartz 적용 끝 -->
+		<!--p595 quartz jobs 적용 시작 -->
+		<dependency>
+    		<groupId>org.quartz-scheduler</groupId>
+    		<artifactId>quartz-jobs</artifactId>
+    		<version>2.3.0</version>
+		</dependency>
+		<!--p595 quartz jobs 적용 끝 -->
 	</dependencies>
     <build>
         <plugins>

@@ -7,8 +7,8 @@ import org.bigdata.domain.BoardVO;
 import org.bigdata.domain.Criteria;
 import org.bigdata.mapper.BoardAttachMapper;
 import org.bigdata.mapper.BoardMapper;
-import org.bigdata.mapper.ReplyMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -58,11 +58,27 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	//특정 게시물 수정처리
+	//게시물 수정시 첨부파일을 모두 삭제처리후 다시 추가
+	@Transactional
 	@Override
 	public boolean modify(BoardVO board) {
-		log.info("modify() 메서드 실행");
 		
-		return mapper.update(board) == 1;
+		//특정 게시물번호에 대한 첨부파일 모두 삭제 처리
+		attachMapper.deleteAll(board.getBno());
+		
+		boolean modifyResult = 
+				mapper.update(board) == 1;
+		
+		if(modifyResult && board.getAttachList() != null && board.getAttachList().size() > 0){
+
+			//첨부파일을 신규로 insert 처리
+			board.getAttachList().forEach(attach -> {
+				attach.setBno(board.getBno());//게시물번호 대입
+				attachMapper.insert(attach);
+			});
+		}
+		
+		return modifyResult;
 	}
 
 	//특정 게시물 삭제 처리
