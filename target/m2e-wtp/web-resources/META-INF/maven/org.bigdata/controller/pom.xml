@@ -217,6 +217,28 @@
     		<version>2.3.0</version>
 		</dependency>
 		<!--p595 quartz jobs 적용 끝 -->
+		<!-- 보안처리 관련 jar설정 시작 -->
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-web</artifactId>
+    		<version>5.0.7.RELEASE</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-config</artifactId>
+    		<version>5.0.7.RELEASE</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-core</artifactId>
+    		<version>5.0.7.RELEASE</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-taglibs</artifactId>
+    		<version>5.0.7.RELEASE</version>
+		</dependency>
+		<!-- 보안처리 관련 jar설정 끝 -->
 	</dependencies>
     <build>
         <plugins>

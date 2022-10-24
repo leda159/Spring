@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- p630  -->
+	<beans:bean id="customAccessDenied" 
+		  class="org.bigdata.security.CustomAccessDeniedHandler">
+	</beans:bean>
+
+	<!-- 인증,인가의 기능을 수행하는 태그 -->
+	<!-- 
+	auto-config="true" ? 
+	  기본 로그인 페이지, Http 기본인증, 로그아웃 기능들을 제공한다
+	use-expression = "true"?
+	  EL(Expression Language을 사용한다는 선언)
+	-->
+	<security:http auto-config="true" use-expressions="true">
+		
+		<!-- url 접근 제한 설정 -->
+		<!-- access: 접근하다 -->
+		<!-- permitAll : 모든 사용자에게 -->
+		<security:intercept-url 
+			pattern="/sample/all" 
+			access="permitAll"/>
+		
+		
+		<!-- hasRole을 가지고 있는 접근자에게만 접근을 허용한다 -->
+		<!-- hasRole : 가지고 있는 -->
+		<security:intercept-url 
+			pattern="/sample/member" 
+			access="hasRole('ROLE_MEMBER')"/>
+			
+		<security:intercept-url 
+			pattern="/sample/admin" 
+			access="hasRole('ROLE_ADMIN')"/>			
+
+		<!-- 예외 발생시 url 처리 -->
+		<!--  <security:access-denied-handler error-page="/accessError/" />-->
+
+		<!-- 예외 발생시 customAccessDenied를 참조하여 예외 처리 -->
+		<security:access-denied-handler 
+					ref="customAccessDenied"/>
+
+		<!-- 개발자가 작성한 로드인 화면을 적용 -->
+		<security:form-login
+				login-page="/customLogin"/>	
+	</security:http>
+	
+	
+	
+	
+	<!-- 인증 처리를 하는 방법을 선언 -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<!-- 
+				비밀번호를 인코딩 처리를 해야하는데
+				{noop}은 인코딩 처리를 하지 않는다는 선언 
+				-->
+				<security:user name="member" 
+							   password="{noop}member" 
+							   authorities="ROLE_MEMBER"/>
+				
+				
+				<!-- 
+				admin 사용자는 두개의 권한을 가짐
+				admin 사용자는  ROLE_MEMBER 를 가지고 
+				있어서 name="member"에 접근이 가능하다.
+				-->
+				<security:user name="admin" 
+							   password="{noop}admin" 
+							   authorities="ROLE_MEMBER,ROLE_ADMIN"/>
+				</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+
+</beans:beans>
+
+
+
+
+
+
