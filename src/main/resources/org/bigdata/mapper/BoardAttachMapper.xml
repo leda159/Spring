@@ -28,6 +28,14 @@
 		      where bno = #{bno}
 	</delete>
 	
+	<select id="getOldFiles"
+		resultType="org.bigdata.domain.BoardAttachVO">
+		<!-- sysdate -1 은 전 날짜를 처리한다 -->
+		<!-- to_char : 날짜를 처리한다 ''yyyy\mm\dd -->
+		select * from tbl_attach where uploadpath = to_char(sysdate -1, 'yyyy\mm\dd')
+	</select>
+
+	
 </mapper>    
 
 

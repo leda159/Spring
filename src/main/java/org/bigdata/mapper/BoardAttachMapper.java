@@ -21,6 +21,10 @@ public interface BoardAttachMapper {
 	//p578 게시물 삭제처리시 첨부파일 모두 삭제 처리
 	public void deleteAll(Long bno);
 	
+	//p600 시스템일자 하루전 tbl_attach 테이블에
+	//저장된 첨부파일을 가져오는 메서드
+	public List<BoardAttachVO> getOldFiles();
+	
 }
 
 
