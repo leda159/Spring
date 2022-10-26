@@ -50,8 +50,8 @@ public class MemberTests {
 				pstmt.setString(2,pwencoder.encode("pw" + i));
 				
 				//user0 ~ user79는 일반사용자
-				//user80 ~ user89는 운영자
-				//user90 ~ user99는 관리자
+				//manager80 ~ manager89는 운영자
+				//admin90 ~ admin99는 관리자
 				if(i < 80) {
 					pstmt.setString(1, "user" + i);
 					pstmt.setString(3, "일반사용자" + i);
@@ -108,10 +108,10 @@ public class MemberTests {
 				if(i < 80) {
 					pstmt.setString(1, "user" + i);
 					pstmt.setString(2, "ROLE_USER");
-				}else if(i < 90) {//user80~user89
+				}else if(i < 90) {//manager80~manager89
 					pstmt.setString(1, "manager" + i);
 					pstmt.setString(2, "ROLE_MEMBER");
-				}else {//user90 ~ user99
+				}else {//admin90 ~ admin99
 					pstmt.setString(1, "admin" + i);
 					pstmt.setString(2, "ROLE_ADMIN");
 				}

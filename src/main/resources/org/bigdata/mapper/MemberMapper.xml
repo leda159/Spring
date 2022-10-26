@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	테이블의 컬럼명과 클래스의 필드명이 다른 경우
+	선언
+	<id>는 기본키에 대한 매핑처리 부분이고
+	<result>는 나머지에 대한 매핑처리 부분을 선언
+	property 속성은 클래스 필드명을 선언하는 것이고
+	column 속성은 테이블 컬럼명을 선언하는 것임 
+-->
+<mapper namespace="org.bigdata.mapper.MemberMapper">
+	<resultMap type="org.bigdata.domain.MemberVO" 
+	           id="memberMap">
+		<id property="userid" column="userid"/>
+		<result property="userid" column="userid"/>
+		<result property="userpw" column="userpw"/>
+		<result property="userName" column="username"/>
+		<result property="regDate" column="regdate"/>
+		<result property="updateDate" column="updatedate"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<!-- AuthVO 클래스와 tbl_member_auth 매핑 -->
+	<resultMap type="org.bigdata.domain.AuthVO" id="authMap">
+		<result property="userid" column="userid"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		select mem.userid,userpw,username,enabled,
+		       regdate,updatedate,auth
+		  from tbl_member mem left outer join tbl_member_auth auth
+		       on mem.userid = auth.userid
+		 where mem.userid = #{userid}             
+	</select>
+</mapper>
+
+
+
+
+    
