@@ -77,16 +77,12 @@
 	<tx:annotation-driven/>
 	<!-- p469 트랜잭션 처리관련 선언 10.14 종료 -->
 	
-	
 	<!-- p597 Quartz 관련 선언 -->
-	<task:annotation-driven/>
-	<!-- p597 Quartz 관련 종료 -->
-	
-	<!-- p598 -->
-	<context:component-scan base-package="org.bigdata.task" />
-				
+	<task:annotation-driven/>			
 
-						
+	<!-- p598 -->	
+	<context:component-scan 
+				base-package="org.bigdata.task"/>				
 
 </beans>
 

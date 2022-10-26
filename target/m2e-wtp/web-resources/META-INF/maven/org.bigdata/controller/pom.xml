@@ -202,43 +202,40 @@
 		    <groupId>net.coobird</groupId>
 		    <artifactId>thumbnailator</artifactId>
 		    <version>0.4.8</version>
-		</dependency>		   
-		<!--p595 quartz 적용 시작 -->
-		<dependency>
-    		<groupId>org.quartz-scheduler</groupId>
-    		<artifactId>quartz</artifactId>
-   	 		<version>2.3.0</version>
 		</dependency>
-		<!--p595 quartz 적용 끝 -->
-		<!--p595 quartz jobs 적용 시작 -->
+		<!-- Quartz 스케줄링 관련 추가 10.24 -->
 		<dependency>
-    		<groupId>org.quartz-scheduler</groupId>
-    		<artifactId>quartz-jobs</artifactId>
-    		<version>2.3.0</version>
-		</dependency>
-		<!--p595 quartz jobs 적용 끝 -->
-		<!-- 보안처리 관련 jar설정 시작 -->
-		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-web</artifactId>
-    		<version>5.0.7.RELEASE</version>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.3.0</version>
 		</dependency>
 		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-config</artifactId>
-    		<version>5.0.7.RELEASE</version>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz-jobs</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+		<!-- 보안처리 관련 jar 설정 10.24 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.0.7.RELEASE</version>
 		</dependency>
 		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-core</artifactId>
-    		<version>5.0.7.RELEASE</version>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.0.7.RELEASE</version>
 		</dependency>
 		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-taglibs</artifactId>
-    		<version>5.0.7.RELEASE</version>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>5.0.7.RELEASE</version>
 		</dependency>
-		<!-- 보안처리 관련 jar설정 끝 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>5.0.7.RELEASE</version>
+		</dependency>
+				   
 	</dependencies>
     <build>
         <plugins>

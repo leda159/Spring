@@ -135,7 +135,6 @@ public class BoardController {
 		List<BoardAttachVO> attachList = service.getAttachList(bno);
 		
 		if(service.remove(bno)) {
-			
 			//특정 게시물 번호에 대한 첨부파일 목록 삭제
 			deleteFiles(attachList);			
 			
@@ -173,11 +172,11 @@ public class BoardController {
 				
 				Path file = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName());
 				
-				//deleteIfExists : 삭제하려는 파일이 존재하면 삭제 처리
+				//삭제하려는 파일이 존재하면 삭제 처리
 				Files.deleteIfExists(file);
 				
-				//삭제하려는 파일 MIME이 이미지인 경우
-				//썸네일 파일도 삭제 처리
+				//삭제하려는 파일의 MIME이 이미지인 경우
+				//썸네일 파일도 삭제처리
 				if(Files.probeContentType(file).startsWith("image")) {
 					
 					Path thumbNail = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\s_" + attach.getUuid() + "_" + attach.getFileName());
@@ -190,8 +189,6 @@ public class BoardController {
 			}
 		});
 	}
-	
-
 	
 	
 }
