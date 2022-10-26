@@ -36,18 +36,20 @@ public class CustomLoginSuccessHandler
 			roleNames.add(authority.getAuthority());
 		});
 		
+		//관리자 권한을 가진 사용자이면
 		if(roleNames.contains("ROLE_ADMIN")) {
 			response.sendRedirect("/sample/admin");
 			return;
 		}
 		
+		//운영자 권한을 가진 사용자이면
 		if(roleNames.contains("ROLE_MEMBER")) {
 			response.sendRedirect("/sample/member");
 			return;
 		}
 		
-		
-		response.sendRedirect("/");
+		//일반 사용자이면 
+		response.sendRedirect("/sample/all");
 		
 	}
 

@@ -24,22 +24,13 @@ public class CustomUserDetailsService
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	
-		log.warn("사용자 아이디:" + username);
-		
-		//Mybatis를 이용하여 사용자 정보를 가져와 참조변수(vo)에 대입
+		//Mybatis를 이용하여 사용자 정보를 가져와
+		//참조변수에 대입
 		MemberVO vo = memberMapper.read(username);
 		
-		log.warn("Mapper로 부터 리턴된 사용자 정보" +vo);
+		log.warn("Mapper로 부터 리턴된 사용자 정보:" + vo);
 		
-		return vo == null? null : new CustomUser(vo);
+		return vo == null ? null : new CustomUser(vo); 
 	}
 
 }
-
-
-
-
-
-
-
-
