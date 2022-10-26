@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../includes/header.jsp" %>
 
 <!DOCTYPE html>
@@ -43,10 +44,23 @@
 							<label>작성자</label>
 							<input class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
 						</div>
-						<button data-oper="modify" 
+						
+						<!-- p717 정상 로그인시에만 수정 버튼 보이게 처리 -->
+						<!-- 로그인 사용자 정보(principal)를 변수에 대입 -->
+						<sec:authentication property="principal"
+							 				var="pinfo"/>
+						<!-- 정상적으로 로그인 한 사용자만 수정버튼을 보여줌 -->
+						<sec:authorize access="isAuthenticated()">
+						
+						<c:if test="${pinfo.username eq board.writer}">
+							<button data-oper="modify" 
 								class="btn btn-primary">
-							수정
-						</button>
+								수정
+							</button>
+						</c:if>
+						
+						</sec:authorize>
+						
 						<button data-oper="list" 
 								class="btn btn-danger">
 							목록
@@ -94,7 +108,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<i class="fa fa-comments fa-fw"></i>댓글
-					<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">댓글등록</button>
+					<sec:authorize access="isAuthenticated()">
+						<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">댓글등록</button>
+					</sec:authorize>
 				</div>
 				<div class="panel-body">
 					<ul class="chat">

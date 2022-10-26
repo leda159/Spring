@@ -13,6 +13,7 @@ import org.bigdata.service.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,6 +57,8 @@ public class BoardController {
 	//webapp > board > register.jsp 생성
 	//화면을 실행시 전송방식은 get방식
 	@GetMapping("/register")
+	//정상적으로 로그인 사용자인지 메서드 실행전 체크
+	@PreAuthorize("isAuthenticated()")
 	public void register() {
 		
 	}
@@ -68,6 +71,7 @@ public class BoardController {
 	//저장된 Flash Attribute들을 Model로 이동처리한다.
 	//header에 매개변수를 표시하지 않으므로 보안에 유리
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO board,
 						   RedirectAttributes rttr){
 		

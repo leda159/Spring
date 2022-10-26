@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../includes/header.jsp" %>
 
 <!DOCTYPE html>
@@ -28,6 +29,8 @@
 				</div>
 				<div class="panel-body">
 					<form role="form" action="/board/modify" method="post">
+						<!-- p714 보안처리시 반드시 선언 -->
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<!-- page 319  수정처리후 다시 현재 페이지로 이동하기 위해 선언-->
 						<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>							
 						<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
@@ -51,21 +54,32 @@
 							<label>작성자</label>
 							<input class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
 						</div>
-						<button type="submit" 
-								data-oper="modify" 
-								class="btn btn-primary">
-							수정
-						</button>
-						<button type="submit" 
-								data-oper="remove" 
-								class="btn btn-danger">
-							삭제
-						</button>
-						<button type="submit" 
-								data-oper="list" 
-								class="btn btn-info">
-							목록
-						</button>
+						
+						<!-- p717 정상 로그인시에만 수정 버튼 보이게 처리 -->
+						<!-- 로그인 사용자 정보(principal)를 변수에 대입 -->
+						<sec:authentication property="principal"
+							 				var="pinfo"/>
+						<!-- 정상적으로 로그인 한 사용자만 수정버튼을 보여줌 -->
+						<sec:authorize access="isAuthenticated()">
+						
+						<c:if test="${pinfo.username eq board.writer}">
+							<button type="submit" 
+									data-oper="modify" 
+									class="btn btn-primary">
+								수정
+							</button>
+						</c:if>
+						</sec:authorize>
+							<button type="submit" 
+									data-oper="remove" 
+									class="btn btn-danger">
+								삭제
+							</button>
+							<button type="submit" 
+									data-oper="list" 
+									class="btn btn-info">
+								목록
+							</button>
 					</form>	
 				</div>
 			</div>

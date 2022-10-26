@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../includes/header.jsp" %>
 
 <!DOCTYPE html>
@@ -30,6 +31,10 @@
 					<form role="form" 
 						  action="/board/register"
 						  method="post">
+						  
+						<!-- p714 보안처리시 반드시 선언 -->
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						  
 						<div class="form-group">
 							<label>제목</label>
 							<input class="form-control" name="title">
@@ -40,7 +45,10 @@
 						</div>
 						<div class="form-group">
 							<label>작성자</label>
-							<input class="form-control" name="writer">
+							<input class="form-control" 
+								   name="writer"
+								   readonly="readonly"
+								   value='<sec:authentication property="principal.username"/>'>
 						</div>
 						<button type="submit" class="btn btn-primary">
 							등록

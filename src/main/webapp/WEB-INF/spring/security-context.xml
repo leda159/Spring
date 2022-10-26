@@ -9,8 +9,8 @@
 				class="org.bigdata.security.CustomAccessDeniedHandler"/>
 	
 	<!-- p639 정상로그인후 처리 -->
-	<beans:bean id="customLoginSuccess"
-				class="org.bigdata.security.CustomLoginSuccessHandler"/>
+	<!--  <beans:bean id="customLoginSuccess"
+				class="org.bigdata.security.CustomLoginSuccessHandler"/>-->
 
 	<!-- p649 비밀번호 암호화 처리 빈등록 -->
 	<!-- <beans:bean id="customPasswordEncoder"
@@ -57,9 +57,7 @@
 			access="hasRole('ROLE_ADMIN')"/>	
 		
 		<!-- 개발자가 작성한 로그인 화면을 적용 -->
-		<security:form-login 
-				login-page="/customLogin"
-				authentication-success-handler-ref="customLoginSuccess"/>
+		<security:form-login login-page="/customLogin"/>
 				
 				
 		
