@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +35,33 @@
 </head>
 
 <body>
+	
+	<!-- p735 메뉴 작성 -->
+	<ul class="">
+		<li>
+			<a href="#">
+				<i class="fa fa-user fa-fw">User Profile</i>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-gear fa-fw">Settings</i>
+			</a>
+		</li>
+		<li class="divider"></li>
+		
+		<sec:authorize access="isAuthenticated()">
+			<li>
+				<a href="/customLogout"><i class="fa fa-sign-out fa-fw"></i>로그아웃</a>
+			</li>
+		</sec:authorize>
+		<sec:authorize access="isAnonymous()">
+			<li>
+				<a href="/customLogin"><i class="fa fa-sign-out fa-fw"></i>로그인</a>
+			</li>
+		</sec:authorize>
+	</ul>
+
 
     <div id="wrapper">
     

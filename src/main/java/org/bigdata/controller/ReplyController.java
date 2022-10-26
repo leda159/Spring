@@ -7,6 +7,7 @@ import org.bigdata.service.ReplyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class ReplyController {
 
 	private ReplyService service;
 	
+	@PreAuthorize("isAuthenticated()")
 	//신규 댓글 등록 처리
 	//http://localhost:8080/replies/new
 	@PostMapping(value="/new",
@@ -78,10 +80,11 @@ public class ReplyController {
 		return new ResponseEntity<>(service.get(rno),HttpStatus.OK);
 	}
 	
+	//로그인 사용자 아이디와 댓글 작성자가 동일한지 체크
+	@PreAuthorize("principal.username == #vo.replyer")
 	//특정 댓글 삭제 처리
-	@DeleteMapping(value="/{rno}",produces= {
-		MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> remove(@PathVariable("rno") Long rno){
+	@DeleteMapping(value="/{rno}")
+	public ResponseEntity<String> remove(@RequestBody ReplyVO vo,@PathVariable("rno") Long rno){
 		
 		return service.remove(rno) == 1 ?
 			   new ResponseEntity<>("success",HttpStatus.OK) :
@@ -89,6 +92,7 @@ public class ReplyController {
 				
 	}
 	
+	@PreAuthorize("principal.username == #vo.replyer")
 	//특정 댓글 수정 처리
 	//http://localhost:8080/replies/12
 	@RequestMapping(

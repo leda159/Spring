@@ -136,6 +136,11 @@
 			return true;
 		}//
 		
+		//p721
+		//보안처리 관련 변수 선언
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
 		//파일업로드 입력창의 값이 변경감지
 		$("input[type='file']").change(function(e){
 			
@@ -165,6 +170,13 @@
 				//시에는 multipart/form-data로 인식시키기 위해
 				//반드시 false로 지정해야 한다.
 				contentType:false,
+				//p722
+				//xhr은 XmlHttpRequest 의 약자로
+				//xhr 헤더를 포함해서 Http Request를 
+				//수행전에 처리
+				beforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);	
+				},
 				data:formData,
 				type:"post",
 				dataType:"json",
@@ -228,6 +240,9 @@
 			$.ajax({
 				url:"/deleteFile",
 				data:{fileName:targetFile,type:type},
+				beforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);	
+				},
 				dataType:"text",
 				type:"post",
 				success:function(result){

@@ -20,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -83,6 +84,7 @@ public class UploadController {
 		log.info("uploadAjax");
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	//Ajax를 이용하여 파일 업로드 처리
 	@PostMapping(value="/uploadAjaxAction",
 				 //서버가 클라이언트에게 JSON형태로 응답처리
@@ -257,6 +259,7 @@ public class UploadController {
 		
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	//p548 첨부파일 X 표시 클릭 처리
 	@RequestMapping(value="/deleteFile",
 			        method=RequestMethod.POST,

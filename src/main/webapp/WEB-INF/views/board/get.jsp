@@ -227,6 +227,16 @@
 	//등록버튼 정보를 변수에 대입
 	var modalRegisterBtn = $("#modalRegisterBtn");
 	
+	//p727 댓글 보안 적용
+	var replyer = null;
+	
+	<sec:authorize access="isAuthenticated()">
+		replyer = '<sec:authentication property="principal.username"/>';
+	</sec:authorize>
+	
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
+	
 	//댓글버튼 클릭 처리
 	$("#addReplyBtn").on("click",function(e){
 		
@@ -362,6 +372,14 @@
 			operForm.attr("action","/board/list").submit();
 		});
 		
+		
+		//p728
+		//Ajax 전송시 헤더에 보안관련 정보를 세팅해서
+		//같이 전송하도록 한다.
+		$(document).ajaxSend(function(e,xhr,options){
+			xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+		});
+		
 		//page423 신규 댓글 등록 버튼 처리
 		modalRegisterBtn.on("click",function(e){
 			
@@ -413,10 +431,26 @@
 		//p427 특정 댓글 수정 버튼 클릭 처리
 		modalModBtn.on("click",function(e){
 			
+			//p733
+			var originalReplyer = modalInputReplyer.val();
+			
 			//reply 객체 타입으로 선언
 			var reply = {rno:modal.data("rno"),
-						 reply:modalInputReply.val()
+						 reply:modalInputReply.val(),
+						 replyer:originalReplyer
 						};
+			
+			if(!replyer){
+				alert("로그인후 수정이 가능합니다!");
+				modal.modal("hide");
+				return;
+			}
+			
+			if(replyer != originalReplyer){
+				alert("자신이 작성한 댓글만 수정이 가능합니다.");
+				modal.modal("hide");
+				return;
+			}
 			
 			replyService.update(reply,function(result){
 				alert(result);
@@ -432,6 +466,28 @@
 			
 			//모달창의 댓글번호를 변수에 대입
 			var rno = modal.data("rno");
+			
+			//p730
+			//게시물 작성자의 값이 없으면 처리
+			if(!replyer){
+				alert("로그인 후 삭제가 가능합니다.");
+				modal.modal("hide");
+				return;
+			}
+			
+			//댓글 모달창의 작성자
+			var originalReplyer = modalInputReplyer.val();
+			
+			//보안처리된 사용자아이디와 댓글 모달창의 작성자가
+			//다르면 삭제 불가
+			if(replyer != originalReplyer){
+				alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+				modal.modal("hide");
+				return;
+			}
+			
+			
+			
 			
 			replyService.remove(rno,function(result){
 				alert(result);

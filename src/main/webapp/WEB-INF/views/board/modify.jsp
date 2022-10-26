@@ -29,8 +29,10 @@
 				</div>
 				<div class="panel-body">
 					<form role="form" action="/board/modify" method="post">
-						<!-- p714 보안처리시 반드시 선언 -->
+					
+						<!-- p719 보안처리시 반드시 선언 -->
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					
 						<!-- page 319  수정처리후 다시 현재 페이지로 이동하기 위해 선언-->
 						<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>							
 						<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
@@ -55,7 +57,6 @@
 							<input class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
 						</div>
 						
-						<!-- p717 정상 로그인시에만 수정 버튼 보이게 처리 -->
 						<!-- 로그인 사용자 정보(principal)를 변수에 대입 -->
 						<sec:authentication property="principal"
 							 				var="pinfo"/>
@@ -64,22 +65,23 @@
 						
 						<c:if test="${pinfo.username eq board.writer}">
 							<button type="submit" 
-									data-oper="modify" 
-									class="btn btn-primary">
+								data-oper="modify" 
+								class="btn btn-primary">
 								수정
 							</button>
-						</c:if>
-						</sec:authorize>
 							<button type="submit" 
 									data-oper="remove" 
 									class="btn btn-danger">
 								삭제
-							</button>
-							<button type="submit" 
-									data-oper="list" 
-									class="btn btn-info">
-								목록
-							</button>
+							</button>					
+						</c:if>
+						</sec:authorize>
+
+						<button type="submit" 
+								data-oper="list" 
+								class="btn btn-info">
+							목록
+						</button>
 					</form>	
 				</div>
 			</div>
@@ -267,6 +269,11 @@
 			return true;
 		}//
 		
+		
+		//보안처리 관련 변수 선언
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
+		
 		//파일업로드 입력창의 값이 변경감지
 		$("input[type='file']").change(function(e){
 			
@@ -298,6 +305,9 @@
 				contentType:false,
 				data:formData,
 				type:"post",
+				beforeSend:function(xhr){
+					xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);	
+				},
 				dataType:"json",
 				success:function(result){
 					showUploadResult(result);
