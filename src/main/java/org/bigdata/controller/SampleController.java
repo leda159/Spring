@@ -1,5 +1,7 @@
 package org.bigdata.controller;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,25 @@ public class SampleController {
 	public void doAdmin() {
 		log.info("관리자만 접근 허용");
 	}
+	
+	
+	//p701
+	//메서드를 실행전 인증처리 실행
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
+	@GetMapping("/annoMember")
+	public void doMember2() {
+		
+		log.info("정상 로그인 된 멤버");
+	}
+	
+	//특정 ROLE을 가진 사용자인 경우 메서드 실행
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/annoAdmin")
+	public void doAdmin2() {
+		
+		log.info("정상 로그인 된 관리자");
+	}
+	
 	
 }
 
