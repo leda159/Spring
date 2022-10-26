@@ -204,8 +204,7 @@
 			});//
 			
 		})();//function end
-	
-			
+
 		//p588 첨부파일 삭제버튼 클릭 처리
 		$(".uploadResult").on("click","button",function(e){
 			
@@ -214,9 +213,10 @@
 				
 				targetLi.remove();
 			}
+			
 			return false;
-		});//
-		
+		});//		
+
 		//p575
 		$(".uploadResult").on("click","li",function(e){
 			
@@ -229,9 +229,8 @@
 			}else{
 				self.location = "/download?fileName=" + path;
 			}
-		});//
+		});// 
 		
-
 		//p589 register.jsp에서 복사
 		//p506 파일업로드시 크기및 확장자 체크
 		//RegExp : 정규식 처리하는 객체

@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>sample/member</h2>
+	<h2>/sample/member page</h2>
 	<a href="/customLogout">로그아웃</a>
 </body>
 </html>
+
+

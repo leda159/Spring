@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>sample/all</h2>
+	<h2>/sample/all page</h2>
 </body>
 </html>
+
+
+
+
+
