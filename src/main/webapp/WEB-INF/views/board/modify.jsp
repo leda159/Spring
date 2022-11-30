@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ include file="../includes/header.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,11 +23,11 @@
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
+			<div class="card">
+				<div class="card-heading">
 					게시판 수정
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 					<form role="form" action="/board/modify" method="post">
 					
 						<!-- p719 보안처리시 반드시 선언 -->
@@ -96,11 +96,11 @@
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-success">
-				<div class="panel-heading">
+			<div class="card">
+				<div class="card-heading">
 					첨부파일
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 				
 					<!-- p586 파일선택 버튼 추가-->
 					<div class="form-group uploadDiv">

@@ -14,25 +14,22 @@
 %>
 
 
-<%@ include file="../includes/header.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 	
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">게시판 리스트</h1>
+			<div class="jumbotron">
+				<div class="container">
+                    <h1 class="display-4">게시판 리스트</h1>
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
+			</div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            게시판 목록
-                            <button id="regBtn" type="button" class="btn btn-success btn-xs pull-right">게시물등록</button>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataList">
+						<!-- <div class="container">
+                            <button id="regBtn" type="button" class="btn btn-success btn-lg pull-right">게시물등록</button>
+                        </div>   -->  
+                        <div class="container">
+                            <button id="regBtn" type="button" class="btn btn-success btn-lg pull-right mb-2">게시물등록</button>
+                            <table width="100%" class="table table-bordered" id="dataList">
                                 <thead>
                                     <tr>
                                         <th class="text-center">게시물번호</th>
@@ -53,7 +50,7 @@
                                 	</tr>	                 		               
                                 </c:forEach>
                             </table>
-                            
+                     
                             <!-- page 340 검색처리 추가 -->
                             <div class="row">
                             	<div class="col-lg-12">
@@ -84,8 +81,8 @@
                         				</li>
                         			</c:if>
                         			<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                        				<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active':''}">
-                        					<a href="${num}">${num}</a>
+                        				<li class="page-item ${pageMaker.cri.pageNum == num ? 'active':''}">
+                        					<a class='page-link' href="${num}">${num}</a>
                         				</li>
                         			</c:forEach>
                         			<c:if test="${pageMaker.next}">
@@ -143,7 +140,7 @@
                             
                         </div>
                         <!-- /.panel-body -->
-                    </div>
+                    
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
@@ -153,18 +150,12 @@
  
  <script>
  	$(document).ready(function(){
- 		$("#dataList").DataTable({
- 			"paging":false,
- 			"ordering":false,
- 			"info":false,
- 			"searching":false,
- 			responsive: true
- 		});
+  		
  		
- 		$(".sidebar-nav").attr("class","sidebar-nav navbar-collapse collapse")
+/*  		$(".sidebar-nav").attr("class","sidebar-nav navbar-collapse collapse")
 		 .attr("aria-expanded","false")
 		 .attr("style","height:1px");
- 		
+ 		 */
  		//신규 게시물 등록시 입력되는 게시물번호 가져오기
  		var result = '<c:out value="${result}"/>';
  		
@@ -204,7 +195,10 @@
  		//page312
  		var actionForm = $("#actionForm");
  		
- 		$(".paginate_button a").on("click",function(e){
+ 		$(".page-item a").on("click",function(e){
+ 			
+ 			alert("aaaa");
+ 			
  			e.preventDefault();//a태그 원래 처리부분을 막는다.
  			
  			//pageNum 속성값에 클릭한 현재 페이지번호를 대입

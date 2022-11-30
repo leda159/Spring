@@ -37,7 +37,8 @@
 <body>
 	
 	<!-- p735 메뉴 작성 -->
-	<ul class="">
+<!-- 	<ul class="dropdown-menu dropdown-user"> -->
+		<ul class="dropdown-menu">
 		<li>
 			<a href="#">
 				<i class="fa fa-user fa-fw">User Profile</i>

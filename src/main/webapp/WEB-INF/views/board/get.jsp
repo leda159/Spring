@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ include file="../includes/header.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,17 +17,14 @@
 <body>
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">게시판 내역</h1>
+			<h1 class="card-header">게시판 내역</h1>
 		</div>
 	</div>
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					게시판 상세보기
-				</div>
-				<div class="panel-body">
+			<div class="card">
+				<div class="card-body">
 						<div class="form-group">
 							<label>번호</label>
 							<input class="form-control" name="title" value='<c:out value="${board.bno}"/>' readonly="readonly">
@@ -89,9 +86,9 @@
 	<!-- 특정 게시물에 대한 첨부파일 목록 출력 시작 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-success">
-				<div class="panel-heading">첨부파일</div>
-				<div class="panel-body">
+ 			<div class="card">
+				<div class="card-header">첨부파일</div>
+				<div class="card-body">
 					<div class="uploadResult">
 						<ul>
 						</ul>
@@ -105,14 +102,14 @@
 	<!-- page 414 댓글 리스트 출력 시작 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
+			<div class="card">
+				<div class="card-header">
 					<i class="fa fa-comments fa-fw"></i>댓글
 					<sec:authorize access="isAuthenticated()">
 						<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">댓글등록</button>
 					</sec:authorize>
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 					<ul class="chat">
 						<li class="left clearfix" data-rno='12'>
 							<div>
@@ -130,7 +127,7 @@
 	</div>
 	<!-- 댓글 리스트 출력 종료 -->
 	<!-- p439  -->
-	<div class="panel-footer">
+	<div class="card-footer">
 	
 	</div>
 	

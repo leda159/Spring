@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ include file="../includes/header.jsp" %>
+<%@ include file="../includes/menu.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,17 +17,17 @@
 <body>
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">게시판 등록</h1>
+			<h1 class="card-header">게시판 등록</h1>
 		</div>
 	</div>
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
+			<div class="card">
+				<div class="card-heading">
 					게시판 등록
 				</div>
-				<div class="panel-body">
+				<div class="card-body">
 					<form role="form" 
 						  action="/board/register"
 						  method="post">
@@ -64,9 +64,9 @@
 	
 	<!-- p554 첨부파일 등록 화면 추가 -->
 	<div class="row">
-		<div class="panel panel-primary">
-			<div class="panel-heading">첨부파일</div>
-			<div class="panel-body">
+		<div class="card">
+			<div class="card-heading">첨부파일</div>
+			<div class="card-body">
 				<div class="form-group uploadDiv">
 					<input type="file" name="uploadFile" multiple>
 				</div>
